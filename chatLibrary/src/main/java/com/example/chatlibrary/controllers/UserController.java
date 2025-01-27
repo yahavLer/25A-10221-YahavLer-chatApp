@@ -1,6 +1,7 @@
 package com.example.chatlibrary.controllers;
 
 import com.example.chatlibrary.API.UserAPI;
+import com.example.chatlibrary.Callback_chat;
 import com.example.chatlibrary.model.User;
 import com.google.gson.GsonBuilder;
 
@@ -28,91 +29,83 @@ public class UserController {
         return retrofit.create(UserAPI.class);
     }
 
-    public void createUser(User user) {
+    public void createUser(User user, Callback_chat<User> callback) {
         UserAPI userAPI = getAPI();
         Call<User> call = userAPI.createUser(user);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    User user = response.body();
-                    System.out.println("User created: " + user);
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
-                    System.out.println("Failed to create user: " + response.errorBody());
+                    callback.onFailure("Failed to create user: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                System.out.println("Failed to create user: " + t.getMessage());
+                callback.onFailure("Failed to create user: " + t.getMessage());
             }
         });
     }
 
-    public void getById(String userId) {
+    public void getById(String userId, Callback_chat<User> callback) {
         UserAPI userAPI = getAPI();
         Call<User> call = userAPI.getById(userId);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    User user = response.body();
-                    System.out.println("User found: " + user);
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
-                    System.out.println("Failed to find user: " + response.errorBody());
+                    callback.onFailure("Failed to find user: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                System.out.println("Failed to find user: " + t.getMessage());
+                callback.onFailure("Failed to find user: " + t.getMessage());
             }
         });
     }
 
-    public void getByUsername(String username) {
+    public void getByUsername(String username, Callback_chat<User> callback) {
         UserAPI userAPI = getAPI();
         Call<User> call = userAPI.getByUsername(username);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    User user = response.body();
-                    System.out.println("User found: " + user);
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
-                    System.out.println("Failed to find user: " + response.errorBody());
+                    callback.onFailure("Failed to find user: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                System.out.println("Failed to find user: " + t.getMessage());
+                callback.onFailure("Failed to find user: " + t.getMessage());
             }
         });
     }
 
-    public void getAllUsers(int size, int page) {
+    public void getAllUsers(int size, int page, Callback_chat<List<User>> callback) {
         UserAPI userAPI = getAPI();
         Call<List<User>> call = userAPI.getAllUsers(size, page);
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                if (response.isSuccessful()) {
-                    List<User> user = response.body();
-                    System.out.println("Users found: " + user);
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
-                    System.out.println("Failed to find users: " + response.errorBody());
+                    callback.onFailure("Failed to find users: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                System.out.println("Failed to find users: " + t.getMessage());
+                callback.onFailure("Failed to find users: " + t.getMessage());
             }
         });
     }
-
-
-
-
 }

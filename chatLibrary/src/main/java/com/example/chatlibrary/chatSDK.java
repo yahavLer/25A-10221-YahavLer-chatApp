@@ -7,65 +7,67 @@ import com.example.chatlibrary.model.Chat;
 import com.example.chatlibrary.model.Message;
 import com.example.chatlibrary.model.User;
 
+import java.util.List;
+
 public class chatSDK {
     private static final ChatController chatController = new ChatController();
     private static final UserController userController = new UserController();
     private static final MessageController messageController = new MessageController();
 
-    public static void createChat(Chat chat, String user1Id, String user2Id) {
-        chatController.createChat(chat, user1Id, user2Id);
+    public static void createChat(Chat chat, String user1Id, String user2Id, Callback_chat<Chat> callback) {
+        chatController.createChat(chat, user1Id, user2Id, callback);
     }
 
-    public static void getChatByChatId(String chatId) {
-        chatController.getChatByChatId(chatId);
+    public static void getChatByChatId(String chatId, Callback_chat<Chat> callback) {
+        chatController.getChatByChatId(chatId, callback);
     }
 
-    public static void getChatsByUserId(String userId) {
-        chatController.getChatsByUserId(userId);
+    public static void getChatsByUserId(String userId, Callback_chat<List<Chat>> callback) {
+        chatController.getChatsByUserId(userId, callback);
     }
 
-    public static void getChatBetweenUsers(String user1Id, String user2Id) {
-        chatController.getChatBetweenUsers(user1Id, user2Id);
+    public static void getChatBetweenUsers(String user1Id, String user2Id, Callback_chat<Chat> callback) {
+        chatController.getChatBetweenUsers(user1Id, user2Id, callback);
     }
 
-    public static void getAllChats(int size, int page) {
-        chatController.getAllChats(size, page);
+    public static void getAllChats(int size, int page, Callback_chat<List<Chat>> callback) {
+        chatController.getAllChats(size, page, callback);
     }
 
-    public static void deleteAll() {
-        chatController.deleteAll();
+    public static void deleteAllChats(Callback_chat<Chat> callback) {
+        chatController.deleteAll(callback);
     }
 
-    public static void createUser(User username) {
-        userController.createUser(username);
+    public static void createUser(User user, Callback_chat<User> callback) {
+        userController.createUser(user, callback);
     }
 
-    public static void getUserByUserId(String userId) {
-        userController.getById(userId);
+    public static void getUserByUserId(String userId, Callback_chat<User> callback) {
+        userController.getById(userId, callback);
     }
 
-    public static void getAllUsers(int size, int page) {
-        userController.getAllUsers(size, page);
+    public static void getAllUsers(int size, int page, Callback_chat<List<User>> callback) {
+        userController.getAllUsers(size, page, callback);
     }
 
-    public static void sendMessage(Message message) {
-        messageController.sendMessage(message);
+    public static void sendMessage(Message message, Callback_chat<Message> callback) {
+        messageController.sendMessage(message, callback);
     }
 
-    public static void getMessageById(String messageId) {
-        messageController.getMessageById(messageId);
+    public static void getMessageById(String messageId, Callback_chat<Message> callback) {
+        messageController.getMessageById(messageId, callback);
     }
 
-    public static void getMessagesByConversationId(String chatId) {
-        messageController.getMessagesByConversationId(chatId);
+    public static void getMessagesByConversationId(String chatId, Callback_chat<List<Message>> callback) {
+        messageController.getMessagesByConversationId(chatId, callback);
     }
 
-    public static void getAllMessages(int size, int page) {
-        messageController.getAllMessages(size, page);
+    public static void getAllMessages(int size, int page, Callback_chat<List<Message>> callback) {
+        messageController.getAllMessages(size, page, callback);
     }
 
-    public static void deleteAllMessages() {
-        messageController.deleteAll();
+    public static void deleteAllMessages(Callback_chat<Message> callback) {
+        messageController.deleteAll(callback);
     }
 
 }

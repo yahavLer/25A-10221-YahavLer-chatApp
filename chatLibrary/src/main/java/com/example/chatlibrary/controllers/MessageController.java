@@ -1,6 +1,7 @@
 package com.example.chatlibrary.controllers;
 
 import com.example.chatlibrary.API.MessageAPI;
+import com.example.chatlibrary.Callback_chat;
 import com.example.chatlibrary.model.Message;
 import com.google.gson.GsonBuilder;
 
@@ -28,149 +29,142 @@ public class MessageController {
         return retrofit.create(MessageAPI.class);
     }
 
-    public void sendMessage(Message message) {
+    public void sendMessage(Message message, Callback_chat<Message> callback) {
         MessageAPI messageAPI = getAPI();
         Call<Message> call = messageAPI.sendMessage(message);
         call.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
-                if (response.isSuccessful()) {
-                    Message message = response.body();
-                    System.out.println("Message created: " + message);
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
-                    System.out.println("Failed to create message: " + response.errorBody());
+                    callback.onFailure("Failed to create message: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
-                System.out.println("Failed to create message: " + t.getMessage());
+                callback.onFailure("Failed to create message: " + t.getMessage());
             }
         });
     }
 
-    public void getMessageById(String messageId) {
+    public void getMessageById(String messageId, Callback_chat<Message> callback) {
         MessageAPI messageAPI = getAPI();
         Call<Message> call = messageAPI.getMessageById(messageId);
         call.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
-                if (response.isSuccessful()) {
-                    Message message = response.body();
-                    System.out.println("Message found: " + message);
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
-                    System.out.println("Failed to get message: " + response.errorBody());
+                    callback.onFailure("Failed to get message: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
-                System.out.println("Failed to get message: " + t.getMessage());
+                callback.onFailure("Failed to get message: " + t.getMessage());
             }
         });
     }
 
-    public void getAllMessages(int size, int page) {
+    public void getAllMessages(int size, int page, Callback_chat<List<Message>> callback) {
         MessageAPI messageAPI = getAPI();
         Call<List<Message>> call = messageAPI.getAllMessages(size, page);
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                if (response.isSuccessful()) {
-                    List<Message> message = response.body();
-                    System.out.println("Messages found: " + message);
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
-                    System.out.println("Failed to get messages: " + response.errorBody());
+                    callback.onFailure("Failed to get messages: " + response.errorBody());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Message>> call, Throwable throwable) {
-                System.out.println("Failed to get messages: " + throwable.getMessage());
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+                callback.onFailure("Failed to get messages: " + t.getMessage());
             }
         });
     }
 
-    public void deleteAll() {
+    public void deleteAll(Callback_chat<Message> callback) {
         MessageAPI messageAPI = getAPI();
         Call<Message> call = messageAPI.deleteAll();
         call.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
-                if (response.isSuccessful()) {
-                    Message message = response.body();
-                    System.out.println("Messages deleted: " + message);
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
-                    System.out.println("Failed to delete messages: " + response.errorBody());
+                    callback.onFailure("Failed to delete messages: " + response.errorBody());
                 }
             }
 
             @Override
-            public void onFailure(Call<Message> call, Throwable throwable) {
-                System.out.println("Failed to delete messages: " + throwable.getMessage());
+            public void onFailure(Call<Message> call, Throwable t) {
+                callback.onFailure("Failed to delete messages: " + t.getMessage());
             }
         });
     }
 
-    public void getMessagesByConversationId(String conversationId) {
+    public void getMessagesByConversationId(String conversationId, Callback_chat<List<Message>> callback) {
         MessageAPI messageAPI = getAPI();
         Call<List<Message>> call = messageAPI.getMessagesByConversationId(conversationId);
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                if (response.isSuccessful()) {
-                    List<Message> message = response.body();
-                    System.out.println("Messages found: " + message);
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
-                    System.out.println("Failed to get messages: " + response.errorBody());
+                    callback.onFailure("Failed to get messages: " + response.errorBody());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Message>> call, Throwable throwable) {
-                System.out.println("Failed to get messages: " + throwable.getMessage());
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+                callback.onFailure("Failed to get messages: " + t.getMessage());
             }
         });
     }
 
-    public void getMessagesByUserIdToReciverId(String userId, String receiverId) {
+    public void getMessagesByUserIdToReciverId(String userId, String receiverId, Callback_chat<List<Message>> callback) {
         MessageAPI messageAPI = getAPI();
         Call<List<Message>> call = messageAPI.getMessagesByUserIdToReciverId(userId, receiverId);
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                if (response.isSuccessful()) {
-                    List<Message> message = response.body();
-                    System.out.println("Messages found: " + message);
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
-                    System.out.println("Failed to get messages: " + response.errorBody());
+                    callback.onFailure("Failed to get messages: " + response.errorBody());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Message>> call, Throwable throwable) {
-                System.out.println("Failed to get messages: " + throwable.getMessage());
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+                callback.onFailure("Failed to get messages: " + t.getMessage());
             }
         });
     }
 
-    public void getMessagesByUserIdFromSenderId(String userId, String senderId) {
+    public void getMessagesByUserIdFromSenderId(String userId, String senderId, Callback_chat<List<Message>> callback) {
         MessageAPI messageAPI = getAPI();
         Call<List<Message>> call = messageAPI.getMessagesByUserIdFromSenderId(userId, senderId);
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                if (response.isSuccessful()) {
-                    List<Message> message = response.body();
-                    System.out.println("Messages found: " + message);
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
-                    System.out.println("Failed to get messages: " + response.errorBody());
+                    callback.onFailure("Failed to get messages: " + response.errorBody());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Message>> call, Throwable throwable) {
-                System.out.println("Failed to get messages: " + throwable.getMessage());
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+                callback.onFailure("Failed to get messages: " + t.getMessage());
             }
         });
     }
