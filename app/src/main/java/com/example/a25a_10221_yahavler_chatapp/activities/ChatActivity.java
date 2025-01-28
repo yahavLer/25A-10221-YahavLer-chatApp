@@ -1,15 +1,14 @@
-package com.example.a25a_10221_yahavler_chatapp;
+package com.example.a25a_10221_yahavler_chatapp.activities;
 
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.a25a_10221_yahavler_chatapp.adapters.MessageAdapter;
+import com.example.a25a_10221_yahavler_chatapp.R;
 
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
