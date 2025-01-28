@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllChatActivity extends AppCompatActivity {
+    private String currentUserId;
     private RecyclerView recyclerChatList;
     private ChatAdapter chatAdapter;
     private List<Chat> chatList = new ArrayList<>();
@@ -26,8 +27,14 @@ public class AllChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_chat);
         findViews();
+        currentUserId = getIntent().getStringExtra("currentUserId");
+        if (currentUserId == null || currentUserId.isEmpty()) {
+            Toast.makeText(this, "Error: No user ID provided", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         recyclerChatList.setLayoutManager(new LinearLayoutManager(this));
-        chatAdapter = new ChatAdapter(chatList, chat -> openChat(chat));
+        chatAdapter = new ChatAdapter(chatList, currentUserId, this::openChat);
         recyclerChatList.setAdapter(chatAdapter);
 
         loadChats(); // טוען את הצ'אטים מהשרת
@@ -45,14 +52,14 @@ public class AllChatActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String errorMessage) {
-                runOnUiThread(() -> Toast.makeText(ChatListActivity.this, "Error loading chats: " + errorMessage, Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(AllChatActivity.this, "Error loading chats: " + errorMessage, Toast.LENGTH_SHORT).show());
             }
         });
     }
 
     private void openChat(Chat chat) {
-        Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
-        intent.putExtra("chatId", chat.getChatId());
+        Intent intent = new Intent(AllChatActivity.this, ChatActivity.class);
+        intent.putExtra("chatId", chat.getId());
         startActivity(intent);
     }
     private void findViews() {

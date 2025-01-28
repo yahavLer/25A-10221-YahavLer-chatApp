@@ -1,28 +1,34 @@
 package com.example.a25a_10221_yahavler_chatapp.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.a25a_10221_yahavler_chatapp.R;
+import com.example.chatlibrary.Callback_chat;
+import com.example.chatlibrary.chatSDK;
 import com.example.chatlibrary.model.Chat;
+import com.example.chatlibrary.model.Message;
+import com.example.chatlibrary.model.User;
 
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
     private List<Chat> chatList;
     private OnChatClickListener listener;
+    private String currentUserId;
 
     public interface OnChatClickListener {
         void onChatClick(Chat chat);
     }
 
-    public ChatAdapter(List<Chat> chatList, OnChatClickListener listener) {
+    public ChatAdapter(List<Chat> chatList, String currentUserId, OnChatClickListener listener) {
         this.chatList = chatList;
         this.listener = listener;
+        this.currentUserId = currentUserId; // עכשיו זה מתקבל מה-Intent
     }
 
     @NonNull
@@ -35,9 +41,30 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         Chat chat = chatList.get(position);
-        holder.tvChatName.setText("Chat with: " + chat.getChatId()); // צריך להחליף בשם משתמש בפועל
-        holder.tvLastMessage.setText(chat.getLastMessage() != null ? chat.getLastMessage() : "No messages");
+        String otherUserId = chat.getUser1Id().equals(currentUserId) ? chat.getUser2Id() : chat.getUser1Id();
 
+        chatSDK.getUserByUserId(otherUserId, new Callback_chat<User>() {
+            @Override
+            public void onSuccess(User result) {
+                holder.tvChatName.setText("Chat with: " + result.getUsername());
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                holder.tvChatName.setText("Chat with: Unknown");
+            }
+        });
+
+        // השגת ההודעה האחרונה מתוך רשימת ההודעות
+        List<Message> messages = chat.getMessages();
+        if (messages != null && !messages.isEmpty()) {
+            Message lastMessage = messages.get(messages.size() - 1);
+            holder.tvLastMessage.setText(lastMessage.getContent());
+        } else {
+            holder.tvLastMessage.setText("No messages yet");
+        }
+
+        // לחיצה על הצ'אט תפתח את השיחה
         holder.itemView.setOnClickListener(v -> listener.onChatClick(chat));
     }
 

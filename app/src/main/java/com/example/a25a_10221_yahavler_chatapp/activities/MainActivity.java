@@ -11,36 +11,37 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.a25a_10221_yahavler_chatapp.R;
 import com.example.chatlibrary.Callback_chat;
 import com.example.chatlibrary.chatSDK;
-import com.example.chatlibrary.model.Message;
 import com.example.chatlibrary.model.User;
-import com.example.chatlibrary.model.Message;
 
 public class MainActivity extends AppCompatActivity {
     private User currentUser;
+    String currentUserId;
     EditText etUserName;
     EditText etPhoneNumber;
-    Button btnLogin;
-    Button btnRegister;
+    Button btnStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViews();
-        btnLogin.setOnClickListener(view -> loginUser());
-        btnRegister.setOnClickListener(view -> registerUser());
+        btnStart.setOnClickListener(view -> start());
     }
 
-    private void loginUser() {
+
+    private void start() {
         String username = etUserName.getText().toString().trim();
-        if (username.isEmpty()) {
-            Toast.makeText(this, "Please enter a username", Toast.LENGTH_SHORT).show();
+        String phoneNumber = etPhoneNumber.getText().toString().trim();
+
+        if (username.isEmpty() || phoneNumber.isEmpty()) {
+            Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        chatSDK.getUserByUserId(username, new Callback_chat<User>() {
+        chatSDK.getByUsernameAndPhone(username, phoneNumber, new Callback_chat<User>() {
             @Override
             public void onSuccess(User result) {
+
                 currentUser = result;
                 Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                 openChatList();
@@ -48,28 +49,17 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String errorMessage) {
-                Toast.makeText(MainActivity.this, "User not found. Please register.", Toast.LENGTH_SHORT).show();
+                // משתמש לא נמצא → ניצור משתמש חדש
+                createNewUser(username, phoneNumber);
             }
         });
     }
 
-    private void registerUser() {
-        String username = etUserName.getText().toString().trim();
-        String phoneNumber = etPhoneNumber.getText().toString().trim();
-        if (username.isEmpty()) {
-            Toast.makeText(this, "Please enter a username", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (phoneNumber.isEmpty()) {
-            Toast.makeText(this, "Please enter a phone number", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-
+    private void createNewUser(String username, String phoneNumber) {
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPhoneNumber(phoneNumber);
+
         chatSDK.createUser(newUser, new Callback_chat<User>() {
             @Override
             public void onSuccess(User result) {
@@ -86,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openChatList() {
-        Intent intent = new Intent(MainActivity.this, ChatListActivity.class);
+        currentUserId = currentUser.getId();
+        Intent intent = new Intent(MainActivity.this, AllChatActivity.class);
+        intent.putExtra("currentUserId", currentUserId); // שולחים את ה-UserId למסך הבא
         startActivity(intent);
         finish();  // מסיים את המסך כדי שלא יוכל לחזור אחורה
     }
@@ -94,8 +86,7 @@ public class MainActivity extends AppCompatActivity {
     private void findViews() {
         etUserName = findViewById(R.id.etUsername);
         etPhoneNumber = findViewById(R.id.etPhone);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnRegister = findViewById(R.id.btnRegister);
+        btnStart = findViewById(R.id.btnStart);
 
 
     }
