@@ -46,6 +46,10 @@ public class chatSDK {
         userController.getById(userId, callback);
     }
 
+    public static void getByUsernameAndPhone(String username,String phoneNumber, Callback_chat<User> callback){
+        userController.getByUsernameAndPhone(username, phoneNumber, callback);
+    }
+
     public static void getAllUsers(int size, int page, Callback_chat<List<User>> callback) {
         userController.getAllUsers(size, page, callback);
     }

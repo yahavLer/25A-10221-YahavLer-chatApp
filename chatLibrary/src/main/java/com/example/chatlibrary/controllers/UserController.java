@@ -69,9 +69,9 @@ public class UserController {
         });
     }
 
-    public void getByUsername(String username, Callback_chat<User> callback) {
+    public void getByUsernameAndPhone(String username,String phoneNumber, Callback_chat<User> callback) {
         UserAPI userAPI = getAPI();
-        Call<User> call = userAPI.getByUsername(username);
+        Call<User> call = userAPI.getByUsernameAndPhone(username, phoneNumber);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
