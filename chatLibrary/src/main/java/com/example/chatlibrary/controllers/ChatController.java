@@ -14,8 +14,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChatController {
-    private static final String BASE_URL = "http://localhost:8080/api/";
-
+//    private static final String BASE_URL = "http://localhost:8080/api/";
+    private static final String BASE_URL = "https://favourable-lorrie-yahavler-7d646b21.koyeb.app/api/";
     private ChatAPI getAPI() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

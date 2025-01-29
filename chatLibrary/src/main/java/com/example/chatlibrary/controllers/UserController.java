@@ -14,7 +14,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserController {
-    private static final String BASE_URL = "http://localhost:8080/api/";
+//    private static final String BASE_URL = "http://localhost:8080/api/";
+    private static final String BASE_URL = "https://favourable-lorrie-yahavler-7d646b21.koyeb.app/api/";
 
     private UserAPI getAPI() {
         Retrofit retrofit = new Retrofit.Builder()
