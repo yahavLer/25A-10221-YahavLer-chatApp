@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MessageController {
 //    private static final String BASE_URL = "http://localhost:8080/api/";
-    private static final String BASE_URL = "https://favourable-lorrie-yahavler-7d646b21.koyeb.app/api/";
+    private static final String BASE_URL = "https://favourable-lorrie-yahavler-7d646b21.koyeb.app/";
 
     private MessageAPI getAPI() {
         Retrofit retrofit = new Retrofit.Builder()

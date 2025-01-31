@@ -17,21 +17,21 @@ import retrofit2.http.Query;
 
 
 public interface ChatAPI {
-    @POST("/api/chats/create")
+    @POST("api/chats/create")
     Call<Chat> createChat(@Body Chat chat, @Query("user1Id") String user1Id, @Query("user2Id") String user2Id);
 
-    @GET("/api/chats/chat/{chatId}")
+    @GET("api/chats/chat/{chatId}")
     Call<Chat> getChatByChatId(@Path("chatId") String chatId);
 
-    @GET("/api/chats/user/{userId}")
+    @GET("api/chats/user/{userId}")
     Call<List<Chat>> getChatsByUserId(@Path("userId") String userId);
 
-    @GET("/api/chats/user1/{user1Id}/user2/{user2Id}")
+    @GET("api/chats/user1/{user1Id}/user2/{user2Id}")
     Call<Chat> getChatBetweenUsers(@Path("user1Id") String user1Id, @Path("user2Id") String user2Id);
 
-    @GET("/api/chats/all")
+    @GET("api/chats/all")
     Call<List<Chat>> getAllChats(@Query("size") int size, @Query("page") int page);
 
-    @DELETE("/api/chats/delete")
+    @DELETE("api/chats/delete")
     Call<Chat> deleteAll();
 }

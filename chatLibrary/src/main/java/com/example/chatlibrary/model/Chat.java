@@ -7,7 +7,7 @@ public class Chat {
     private String id;
     private String user1Id;
     private String user2Id;
-    private LocalDateTime createdAt;
+    private String createdAt;
     private List<Message> messages;
 
     // Constructors
@@ -39,11 +39,11 @@ public class Chat {
         this.user2Id = user2Id;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 

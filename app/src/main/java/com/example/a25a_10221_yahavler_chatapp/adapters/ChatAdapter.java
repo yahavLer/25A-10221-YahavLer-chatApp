@@ -1,6 +1,5 @@
 package com.example.a25a_10221_yahavler_chatapp.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,14 @@ import com.example.chatlibrary.chatSDK;
 import com.example.chatlibrary.model.Chat;
 import com.example.chatlibrary.model.Message;
 import com.example.chatlibrary.model.User;
-
 import java.util.List;
+import com.example.a25a_10221_yahavler_chatapp.ChatCallback;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
     private List<Chat> chatList;
     private OnChatClickListener listener;
     private String currentUserId;
+    private ChatCallback chatCallback;
 
     public interface OnChatClickListener {
         void onChatClick(Chat chat);
@@ -29,6 +29,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         this.chatList = chatList;
         this.listener = listener;
         this.currentUserId = currentUserId; // עכשיו זה מתקבל מה-Intent
+    }
+
+    public void setChatCallback(ChatCallback chatCallback) {
+        this.chatCallback = chatCallback;
     }
 
     @NonNull

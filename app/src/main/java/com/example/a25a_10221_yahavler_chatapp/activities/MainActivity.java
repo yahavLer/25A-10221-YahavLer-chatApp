@@ -2,6 +2,7 @@ package com.example.a25a_10221_yahavler_chatapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private void start() {
         String username = etUserName.getText().toString().trim();
         String phoneNumber = etPhoneNumber.getText().toString().trim();
+        Log.e("USER DETAILS","etUserName" + username +"phoneNumber"+ phoneNumber);
 
         if (username.isEmpty() || phoneNumber.isEmpty()) {
             Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show();
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String errorMessage) {
-                // משתמש לא נמצא → ניצור משתמש חדש
+                Log.e("USER NOT FOUND","ERROR" + errorMessage);
                 createNewUser(username, phoneNumber);
             }
         });
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String errorMessage) {
+
                 Toast.makeText(MainActivity.this, "Registration failed: " + errorMessage, Toast.LENGTH_SHORT).show();
             }
         });

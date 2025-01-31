@@ -6,7 +6,7 @@ public class User {
     private String id;
     private String username;
     private String phoneNumber;
-    private LocalDateTime timestamp;
+    private String timestamp;
 
     // Constructors
     public User() {
@@ -37,11 +37,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public LocalDateTime getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 

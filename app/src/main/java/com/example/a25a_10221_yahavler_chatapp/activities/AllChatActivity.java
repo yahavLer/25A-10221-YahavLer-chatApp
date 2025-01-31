@@ -40,7 +40,7 @@ public class AllChatActivity extends AppCompatActivity {
         loadChats(); // טוען את הצ'אטים מהשרת
     }
     private void loadChats() {
-        chatSDK.getAllChats(10, 1, new Callback_chat<List<Chat>>() {
+        chatSDK.getAllChats(10, 0, new Callback_chat<List<Chat>>() {
             @Override
             public void onSuccess(List<Chat> result) {
                 runOnUiThread(() -> {

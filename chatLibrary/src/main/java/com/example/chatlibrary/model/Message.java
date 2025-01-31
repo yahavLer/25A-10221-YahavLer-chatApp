@@ -8,7 +8,7 @@ public class Message {
     private String senderId;
     private String receiverId;
     private String content;
-    private LocalDateTime timestamp;
+    private String timestamp;
 
     // Constructors
     public Message() {
@@ -54,11 +54,11 @@ public class Message {
         this.content = content;
     }
 
-    public LocalDateTime getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 

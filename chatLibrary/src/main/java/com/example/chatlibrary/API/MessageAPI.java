@@ -12,28 +12,28 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MessageAPI {
-    @POST("/api/messages/send")
+    @POST("api/messages/send")
     Call<Message> sendMessage(@Body Message message);
 
-    @GET("/api/messages/conversation/{conversationId}")
+    @GET("api/messages/conversation/{conversationId}")
     Call<List<Message>> getMessagesByConversationId(@Path("conversationId") String conversationId);
 
-    @GET("/api/messages/user/{userId}/receiver/{receiverId}")
+    @GET("api/messages/user/{userId}/receiver/{receiverId}")
     Call<List<Message>> getMessagesByUserIdToReciverId(
             @Path("userId") String userId, @Path("receiverId") String receiverId);
 
-    @GET("/api/messages/user/{userId}/sender/{senderId}")
+    @GET("api/messages/user/{userId}/sender/{senderId}")
     Call<List<Message>> getMessagesByUserIdFromSenderId(
             @Path("userId") String userId, @Path("senderId") String senderId);
 
-    @GET("/api/messages/{messageId}")
+    @GET("api/messages/{messageId}")
     Call<Message> getMessageById(@Path("messageId") String messageId);
 
-    @GET("/api/messages/all")
+    @GET("api/messages/all")
     Call<List<Message>> getAllMessages(
             @Query("size") int size,
             @Query("page") int page);
 
-    @GET("/api/messages/delete")
+    @GET("api/messages/delete")
     Call<Message> deleteAll();
 }
