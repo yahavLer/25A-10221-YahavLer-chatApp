@@ -2,6 +2,7 @@ package com.example.a25a_10221_yahavler_chatapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ public class AllChatActivity extends AppCompatActivity {
     private RecyclerView recyclerChatList;
     private ChatAdapter chatAdapter;
     private TextView tvChatListTitle;
+    private Button btnCreateNewChat;
+
     private List<Chat> chatList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class AllChatActivity extends AppCompatActivity {
         chatAdapter = new ChatAdapter(chatList, currentUserId, this::openChat);
         recyclerChatList.setAdapter(chatAdapter);
         loadChats();
+        btnCreateNewChat.setOnClickListener(v -> openUserListScreen());
+
     }
 
     private void loadChats() {
@@ -81,9 +86,16 @@ public class AllChatActivity extends AppCompatActivity {
         intent.putExtra("currentUserId", currentUserId);
         startActivity(intent);
     }
+    private void openUserListScreen() {
+        Intent intent = new Intent(AllChatActivity.this, UserListActivity.class);
+        intent.putExtra("currentUserId", currentUserId);
+        startActivity(intent);
+    }
+
     private void findViews() {
         recyclerChatList = findViewById(R.id.recycler_chat_list);
         tvChatListTitle = findViewById(R.id.tvChatListTitle);
+        btnCreateNewChat = findViewById(R.id.btnNewChat);
     }
 
 }
