@@ -110,9 +110,9 @@ public class MessageController {
         });
     }
 
-    public void getMessagesByConversationId(String conversationId, Callback_chat<List<Message>> callback) {
+    public void getMessagesByChatId(String chatId, Callback_chat<List<Message>> callback) {
         MessageAPI messageAPI = getAPI();
-        Call<List<Message>> call = messageAPI.getMessagesByConversationId(conversationId);
+        Call<List<Message>> call = messageAPI.getMessagesByChatId(chatId);
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {

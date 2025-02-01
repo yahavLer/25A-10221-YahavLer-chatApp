@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     private void openChatList() {
         currentUserId = currentUser.getId();
         Intent intent = new Intent(MainActivity.this, AllChatActivity.class);

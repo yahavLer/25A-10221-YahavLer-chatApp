@@ -30,6 +30,7 @@ public class AllChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_chat);
         findViews();
+
         currentUserId = getIntent().getStringExtra("currentUserId");
         if (currentUserId == null || currentUserId.isEmpty()) {
             Toast.makeText(this, "Error: No user ID provided", Toast.LENGTH_SHORT).show();
@@ -37,19 +38,19 @@ public class AllChatActivity extends AppCompatActivity {
             return;
         }
         loadCurrentUser();
-
         recyclerChatList.setLayoutManager(new LinearLayoutManager(this));
         chatAdapter = new ChatAdapter(chatList, currentUserId, this::openChat);
         recyclerChatList.setAdapter(chatAdapter);
-        loadChats(); // טוען את הצ'אטים מהשרת
+        loadChats();
     }
+
     private void loadChats() {
         chatSDK.getChatsByUserId(currentUserId, new Callback_chat<List<Chat>>() {
             @Override
-            public void onSuccess(List<Chat> result) {
+            public void onSuccess(List<Chat> chats) {
                 runOnUiThread(() -> {
                     chatList.clear();
-                    chatList.addAll(result);
+                    chatList.addAll(chats);
                     chatAdapter.notifyDataSetChanged();
                 });
             }
@@ -60,6 +61,7 @@ public class AllChatActivity extends AppCompatActivity {
             }
         });
     }
+
     private void loadCurrentUser() {
         chatSDK.getUserByUserId(currentUserId, new Callback_chat<User>() {
             @Override
@@ -76,10 +78,12 @@ public class AllChatActivity extends AppCompatActivity {
     private void openChat(Chat chat) {
         Intent intent = new Intent(AllChatActivity.this, ChatActivity.class);
         intent.putExtra("chatId", chat.getId());
+        intent.putExtra("currentUserId", currentUserId);
         startActivity(intent);
     }
     private void findViews() {
         recyclerChatList = findViewById(R.id.recycler_chat_list);
         tvChatListTitle = findViewById(R.id.tvChatListTitle);
     }
+
 }

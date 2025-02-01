@@ -1,6 +1,7 @@
 package com.example.a25a_10221_yahavler_chatapp.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         Message message = messageList.get(position);
+        Log.d("MessageAdapter", "Message: " + message.getContent() + ", SenderId: " + message.getSenderId());
 
         // בדיקה אם ההודעה נשלחה ע"י המשתמש המחובר
         if (message.getSenderId().equals(currentUserId)) {

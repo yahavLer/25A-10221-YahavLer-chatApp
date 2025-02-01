@@ -27,12 +27,6 @@
         android:layout_weight="1"
         tools:listitem="@layout/item_chat"/>
 
-    <Button
-        android:id="@+id/btnNewChat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Start New Chat"
-        android:layout_marginTop="10dp"/>
 
 </LinearLayout>
 

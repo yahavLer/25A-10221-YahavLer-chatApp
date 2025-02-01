@@ -1,8 +1,7 @@
 package com.example.a25a_10221_yahavler_chatapp.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -49,12 +48,19 @@ public class ChatActivity extends AppCompatActivity {
         // קבלת הנתונים מה-Intent
         chatId = getIntent().getStringExtra("chatId");
         currentUserId = getIntent().getStringExtra("currentUserId");
+        Log.e("chatId",chatId );
+        Log.e("currentUserId",currentUserId );
 
+        if (chatId == null || chatId.isEmpty() || currentUserId == null || currentUserId.isEmpty()) {
+            Toast.makeText(this, "Error: Missing chat data", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         // שליפת המידע של הצ'אט
         loadChatInfo();
 
         // טעינת ההודעות בצ'אט
-        loadMessages();
+        loadChat();
 
         btnSend.setOnClickListener(v -> sendMessage());
 
@@ -90,22 +96,34 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private void loadMessages() {
-        chatSDK.getMessagesByConversationId(chatId, new Callback_chat<List<Message>>() {
+    private void loadChat() {
+        chatSDK.getChatByChatId(chatId, new Callback_chat<Chat>() {
             @Override
-            public void onSuccess(List<Message> result) {
-                runOnUiThread(() -> {
+            public void onSuccess(Chat result) {
+                if (result == null) {
+                    Toast.makeText(ChatActivity.this, "No chat found", Toast.LENGTH_SHORT).show();
+                } else {
+                    // טוען את כל ההודעות מתוך הצ'אט
                     messageList.clear();
-                    messageList.addAll(result);
-                    messageAdapter = new MessageAdapter(messageList, currentUserId);
-                    recyclerMessages.setAdapter(messageAdapter);
+                    messageList.addAll(result.getMessages());
+
+                    // יצירת ה-Adapter אם לא קיים, או עדכון נתונים אם כבר קיים
+                    if (messageAdapter == null) {
+                        messageAdapter = new MessageAdapter(messageList, currentUserId);
+                        recyclerMessages.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
+                        recyclerMessages.setAdapter(messageAdapter);
+                    } else {
+                        messageAdapter.notifyDataSetChanged();
+                    }
+
                     recyclerMessages.scrollToPosition(messageList.size() - 1);
-                });
+                    Toast.makeText(ChatActivity.this, "Loaded " + messageList.size() + " messages", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(String errorMessage) {
-                runOnUiThread(() -> Toast.makeText(ChatActivity.this, "Error loading messages", Toast.LENGTH_SHORT).show());
+                Toast.makeText(ChatActivity.this, "Error loading chat: " + errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }

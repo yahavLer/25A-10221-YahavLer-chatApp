@@ -1,5 +1,6 @@
 package com.example.a25a_10221_yahavler_chatapp.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.a25a_10221_yahavler_chatapp.R;
+import com.example.a25a_10221_yahavler_chatapp.activities.ChatActivity;
 import com.example.chatlibrary.Callback_chat;
 import com.example.chatlibrary.chatSDK;
 import com.example.chatlibrary.model.Chat;
@@ -69,7 +71,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         }
 
         // לחיצה על הצ'אט תפתח את השיחה
-        holder.itemView.setOnClickListener(v -> listener.onChatClick(chat));
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), ChatActivity.class);
+            intent.putExtra("chatId", chat.getId());  // שליחת chatId
+            intent.putExtra("currentUserId", currentUserId);  // שליחת currentUserId
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
     @Override
