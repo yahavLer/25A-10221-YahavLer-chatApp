@@ -17,10 +17,12 @@ import java.util.List;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
     private List<Message> messageList;
     private String currentUserId;
+    private String otherUserName;
 
-    public MessageAdapter(List<Message> messageList, String currentUserId) {
+    public MessageAdapter(List<Message> messageList, String currentUserId,String otherUserName) {
         this.messageList = messageList;
         this.currentUserId = currentUserId;
+        this.otherUserName = otherUserName;
     }
 
     @NonNull
@@ -40,7 +42,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             holder.tvSenderName.setText("You");
             holder.tvMessageContent.setBackgroundResource(R.drawable.bubble_sent); // עיצוב להודעה שנשלחה ע"י המשתמש
         } else {
-            holder.tvSenderName.setText("Other");
+            holder.tvSenderName.setText(otherUserName);
             holder.tvMessageContent.setBackgroundResource(R.drawable.bubble_received); // עיצוב להודעה שהתקבלה
         }
 

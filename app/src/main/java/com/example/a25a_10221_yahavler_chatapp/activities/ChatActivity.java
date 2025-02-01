@@ -30,7 +30,7 @@ public class ChatActivity extends AppCompatActivity {
     private TextView chatUserTitle;
     private MessageAdapter messageAdapter;
     private List<Message> messageList = new ArrayList<>();
-    private String chatId, currentUserId, otherUserId;
+    private String chatId, currentUserId, otherUserId, otherUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,8 @@ public class ChatActivity extends AppCompatActivity {
                 chatSDK.getUserByUserId(otherUserId, new Callback_chat<User>() {
                     @Override
                     public void onSuccess(User user) {
-                        runOnUiThread(() -> chatUserTitle.setText("Chat with " + user.getUsername()));
+                        otherUserName = user.getUsername();  // שמירת שם המשתמש השני
+                        runOnUiThread(() -> chatUserTitle.setText("Chat with " + otherUserName));
                     }
 
                     @Override
@@ -109,7 +110,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     // יצירת ה-Adapter אם לא קיים, או עדכון נתונים אם כבר קיים
                     if (messageAdapter == null) {
-                        messageAdapter = new MessageAdapter(messageList, currentUserId);
+                        messageAdapter = new MessageAdapter(messageList, currentUserId, otherUserName);
                         recyclerMessages.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
                         recyclerMessages.setAdapter(messageAdapter);
                     } else {
