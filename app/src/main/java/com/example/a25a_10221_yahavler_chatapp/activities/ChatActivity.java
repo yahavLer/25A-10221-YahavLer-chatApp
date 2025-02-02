@@ -111,8 +111,8 @@ public class ChatActivity extends AppCompatActivity {
                     // יצירת ה-Adapter אם לא קיים, או עדכון נתונים אם כבר קיים
                     if (messageAdapter == null) {
                         messageAdapter = new MessageAdapter(messageList, currentUserId, otherUserName);
-                        recyclerMessages.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
                         recyclerMessages.setAdapter(messageAdapter);
+                        recyclerMessages.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
                     } else {
                         messageAdapter.notifyDataSetChanged();
                     }

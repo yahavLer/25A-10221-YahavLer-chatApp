@@ -36,7 +36,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         Message message = messageList.get(position);
         Log.d("MessageAdapter", "Message: " + message.getContent() + ", SenderId: " + message.getSenderId());
-
+        Log.d("MessageAdapter", "Other user name: " + otherUserName);
         // בדיקה אם ההודעה נשלחה ע"י המשתמש המחובר
         if (message.getSenderId().equals(currentUserId)) {
             holder.tvSenderName.setText("You");
