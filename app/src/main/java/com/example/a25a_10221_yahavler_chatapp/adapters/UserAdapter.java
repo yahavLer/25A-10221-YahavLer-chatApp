@@ -34,6 +34,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = userList.get(position);
         holder.tvUserName.setText(user.getUsername());
+        holder.tvPhoneNumber.setText(user.getPhoneNumber());
         holder.itemView.setOnClickListener(v -> listener.onUserClick(user));
     }
 
@@ -44,10 +45,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView tvUserName;
+        TextView tvPhoneNumber;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUserName = itemView.findViewById(R.id.tvUserName);
+            tvPhoneNumber = itemView.findViewById(R.id.tvPhoneNumber);
         }
     }
 }
