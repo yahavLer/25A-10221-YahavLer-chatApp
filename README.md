@@ -95,8 +95,3 @@ chatSDK.getChatsByUserId(currentUserId, new Callback_chat<List<Chat>>() {
         System.err.println("Error fetching chats: " + errorMessage);
     }
 });
-
-
-
-
-
