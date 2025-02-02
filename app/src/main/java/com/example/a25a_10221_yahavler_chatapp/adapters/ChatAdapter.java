@@ -15,6 +15,8 @@ import com.example.chatlibrary.model.Chat;
 import com.example.chatlibrary.model.Message;
 import com.example.chatlibrary.model.User;
 import java.util.List;
+import java.util.Objects;
+
 import com.example.a25a_10221_yahavler_chatapp.ChatCallback;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
@@ -47,7 +49,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         Chat chat = chatList.get(position);
-        String otherUserId = chat.getUser1Id().equals(currentUserId) ? chat.getUser2Id() : chat.getUser1Id();
+//        String otherUserId = chat.getUser1Id().equals(currentUserId) ? chat.getUser2Id() : chat.getUser1Id();
+        String otherUserId = Objects.equals(chat.getUser1Id(), currentUserId) ? chat.getUser2Id() : chat.getUser1Id();
 
         chatSDK.getUserByUserId(otherUserId, new Callback_chat<User>() {
             @Override

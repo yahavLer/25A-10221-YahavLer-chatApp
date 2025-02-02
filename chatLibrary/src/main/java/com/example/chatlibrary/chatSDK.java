@@ -62,10 +62,6 @@ public class chatSDK {
         messageController.getMessageById(messageId, callback);
     }
 
-    public static void getMessagesByChatId(String chatId, Callback_chat<List<Message>> callback) {
-        messageController.getMessagesByChatId(chatId, callback);
-    }
-
     public static void getAllMessages(int size, int page, Callback_chat<List<Message>> callback) {
         messageController.getAllMessages(size, page, callback);
     }

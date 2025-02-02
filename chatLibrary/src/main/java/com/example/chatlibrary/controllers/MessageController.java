@@ -110,25 +110,6 @@ public class MessageController {
         });
     }
 
-    public void getMessagesByChatId(String chatId, Callback_chat<List<Message>> callback) {
-        MessageAPI messageAPI = getAPI();
-        Call<List<Message>> call = messageAPI.getMessagesByChatId(chatId);
-        call.enqueue(new Callback<List<Message>>() {
-            @Override
-            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    callback.onSuccess(response.body());
-                } else {
-                    callback.onFailure("Failed to get messages: " + response.errorBody());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Message>> call, Throwable t) {
-                callback.onFailure("Failed to get messages: " + t.getMessage());
-            }
-        });
-    }
 
     public void getMessagesByUserIdToReciverId(String userId, String receiverId, Callback_chat<List<Message>> callback) {
         MessageAPI messageAPI = getAPI();

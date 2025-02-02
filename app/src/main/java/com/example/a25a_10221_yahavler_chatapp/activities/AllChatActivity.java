@@ -98,4 +98,11 @@ public class AllChatActivity extends AppCompatActivity {
         btnCreateNewChat = findViewById(R.id.btnNewChat);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadChats();  // טוען מחדש את רשימת הצ'אטים
+    }
+
+
 }
