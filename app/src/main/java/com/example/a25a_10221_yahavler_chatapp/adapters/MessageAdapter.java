@@ -42,10 +42,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         // בדיקה אם ההודעה נשלחה ע"י המשתמש המחובר
         if (message.getSenderId().equals(currentUserId)) {
             holder.tvSenderName.setText("You");
+            holder.tvTime.setText(message.getTimestamp());
             holder.tvMessageContent.setBackgroundResource(R.drawable.bubble_sent); // עיצוב להודעה שנשלחה ע"י המשתמש
             ((LinearLayout) holder.itemView).setGravity(Gravity.END);  // יישור לימין
         } else {
             holder.tvSenderName.setText(otherUserName);
+            holder.tvTime.setText(message.getTimestamp());
             holder.tvMessageContent.setBackgroundResource(R.drawable.bubble_received); // עיצוב להודעה שהתקבלה
             ((LinearLayout) holder.itemView).setGravity(Gravity.START);  // יישור לשמאל
         }
@@ -59,12 +61,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     }
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
-        TextView tvSenderName, tvMessageContent;
+        TextView tvSenderName, tvMessageContent, tvTime;
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
             tvSenderName = itemView.findViewById(R.id.tvSenderName);
             tvMessageContent = itemView.findViewById(R.id.tvMessageContent);
+            tvTime=itemView.findViewById(R.id.tvTime);
         }
     }
 }
