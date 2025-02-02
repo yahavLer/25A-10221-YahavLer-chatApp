@@ -56,11 +56,11 @@ public class ChatActivity extends AppCompatActivity {
             finish();
             return;
         }
-        // שליפת המידע של הצ'אט
+        // Retrieving chat information
         loadChatInfo();
 
-        // טעינת ההודעות בצ'אט
-        loadChat();
+        // Loading the messages in the chat
+        // loadChat();
 
         btnSend.setOnClickListener(v -> sendMessage());
 
@@ -81,6 +81,7 @@ public class ChatActivity extends AppCompatActivity {
                     public void onSuccess(User user) {
                         otherUserName = user.getUsername();  // שמירת שם המשתמש השני
                         runOnUiThread(() -> chatUserTitle.setText("Chat with " + otherUserName));
+                        loadChat();
                     }
 
                     @Override
