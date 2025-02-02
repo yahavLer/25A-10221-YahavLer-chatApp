@@ -2,9 +2,11 @@ package com.example.a25a_10221_yahavler_chatapp.adapters;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,9 +43,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         if (message.getSenderId().equals(currentUserId)) {
             holder.tvSenderName.setText("You");
             holder.tvMessageContent.setBackgroundResource(R.drawable.bubble_sent); // עיצוב להודעה שנשלחה ע"י המשתמש
+            ((LinearLayout) holder.itemView).setGravity(Gravity.END);  // יישור לימין
         } else {
             holder.tvSenderName.setText(otherUserName);
             holder.tvMessageContent.setBackgroundResource(R.drawable.bubble_received); // עיצוב להודעה שהתקבלה
+            ((LinearLayout) holder.itemView).setGravity(Gravity.START);  // יישור לשמאל
         }
 
         holder.tvMessageContent.setText(message.getContent());
