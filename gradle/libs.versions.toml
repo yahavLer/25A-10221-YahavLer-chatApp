@@ -1,5 +1,5 @@
 [versions]
-agp = "8.5.0"
+agp = "8.5.2"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -24,4 +24,4 @@ support-annotations = { group = "com.android.support", name = "support-annotatio
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-#maven-publish = { id = "maven-publish" }
+maven-publish = { id = "maven-publish" }

@@ -1,11 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
-//    alias(libs.plugins.maven.publish)
+    alias(libs.plugins.maven.publish) // Apply the maven-publish plugin
 }
 
 android {
     namespace = "com.example.chatlibrary"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 26
@@ -24,11 +24,44 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.github.yahavLer" // Change as needed
+                artifactId = "chatLibrary" // Change as needed
+                version = "1.0.0" // Change as needed
+                artifact(tasks.getByName("bundleReleaseAar"))
 
+                // Add dependencies to the Maven publication configuration (api or implementation)
+
+                pom {
+                    withXml {
+                        val dependenciesNode = asNode().appendNode("dependencies")
+                        configurations.api.get().dependencies.forEach { dependency ->
+                            val dependencyNode = dependenciesNode.appendNode("dependency")
+                            dependencyNode.appendNode("groupId", dependency.group)
+                            dependencyNode.appendNode("artifactId", dependency.name)
+                            dependencyNode.appendNode("version", dependency.version)
+                            dependencyNode.appendNode("scope", "compile")
+                        }
+                        configurations.implementation.get().dependencies.forEach { dependency ->
+                            val dependencyNode = dependenciesNode.appendNode("dependency")
+                            dependencyNode.appendNode("groupId", dependency.group)
+                            dependencyNode.appendNode("artifactId", dependency.name)
+                            dependencyNode.appendNode("version", dependency.version)
+                            dependencyNode.appendNode("scope", "runtime")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 dependencies {
 
     implementation(libs.appcompat)
