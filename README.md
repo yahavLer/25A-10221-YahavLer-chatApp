@@ -1,97 +1,187 @@
-# Chat Management System (Android App, API, & SDK)
+# Chat SDK for Android
 
-The **Chat Management System** is a real-time communication solution, comprising an Android application, a RESTful API service, and an Android SDK. This project allows users to connect, create chats with new people, and send and receive messages instantly. The system includes robust API endpoints and an SDK that simplifies integration.
+The Chat SDK is a flexible and easy-to-use library designed to simplify the creation and management of chat functionalities in Android applications. It provides core features like chat creation, user management, and message handling, with all operations performed asynchronously through callback-based methods.
 
----
-
-## **Project Architecture**
-
-The project consists of the following key components:
-
-### **1. API Service**
-The API provides the backend infrastructure for managing users, chats, and messages.  
-Main endpoints include:
-
-- **User Management**  
-  Create and retrieve user data.  
-  Relevant API file: [`UserAPI.java`](docs/UserAPI.md)  
-  Example endpoints:
-    - `POST /api/users/create`: Creates a new user.
-    - `GET /api/users/all`: Retrieves all users.
-
-- **Chat Management**  
-  Handle chat creation and retrieval.  
-  Relevant API file: [`ChatAPI.java`](docs/ChatAPI.md)  
-  Example endpoints:
-    - `POST /api/chats/create`: Creates a new chat.
-    - `GET /api/chats/user/{userId}`: Retrieves all chats for a user.
-
-- **Message Management**  
-  Manage sending and receiving of messages.  
-  Relevant API file: [`MessageAPI.java`](docs/MessageAPI.md)  
-  Example endpoints:
-    - `POST /api/messages/send`: Sends a new message.
-    - `GET /api/messages/user/{userId}`: Retrieves messages by user.
+## Table of Contents
+1. [What's New](#whats-new)
+2. [Key Features](#key-features)
+3. [Architecture Overview](#architecture-overview)
+4. [Installation](#installation)
+5. [Permissions](#permissions)
+6. [Initialization](#initialization)
+7. [Usage Examples](#usage-examples)
+8. [Error Handling](#error-handling)
+9. [Use Cases](#use-cases)
+10. [Known Limitations](#known-limitations)
+11. [Contributing](#contributing)
+12. [License](#license)
 
 ---
 
-### **2. Android SDK**
-
-The SDK simplifies interaction with the API by abstracting API calls into easy-to-use methods.  
-Main features provided by the SDK include:
-
-- **User Management:** Create users and fetch user data.
-- **Chat Management:** Create chats, fetch chat details, and list a user's chats.
-- **Message Management:** Send messages and retrieve messages for specific conversations.
+## What's New
+Version 1.0.0:
+- Initial release with core chat, user, and message operations.
 
 ---
 
-## **3. Android Example Application**
-
-The Android app demonstrates the full integration of the chat system. Key screens and features include:
-
-- **Chat List Screen:** Displays all chats of the current user.
-- **Chat Screen:** Allows users to send and receive messages in real-time.
-- **User List Screen:** Allows users to create new chats by selecting a user from the list.
+## Key Features
+- **Chat Management:** Create and retrieve chats, including filtering by user or chat ID.
+- **User Management:** Register and manage users with simple API calls.
+- **Messaging:** Send, retrieve, and delete messages asynchronously.
+- **Callback-Based Design:** Handle success and failure responses efficiently.
 
 ---
 
-## **Features**
+## Architecture Overview
+The SDK's architecture is structured around three core controllers:
 
-- **User Registration:** Create new user accounts.
-- **Chat Management:** Create and list chats for a user.
-- **Real-time Messaging:** Send and receive messages in real-time.
-- **Expandable SDK:** The system is designed to allow easy extension and customization.
+- **ChatController:** Manages chat creation and retrieval operations.
+- **UserController:** Handles user registration and information retrieval.
+- **MessageController:** Manages sending and retrieving messages.
+
+These controllers are accessed via the main `chatSDK` facade, which exposes various methods such as:
+
+- `createChat(Chat chat, String user1Id, String user2Id, Callback_chat<Chat> callback)`
+- `getUserByUserId(String userId, Callback_chat<User> callback)`
+- `sendMessage(Message message, Callback_chat<Message> callback)`
 
 ---
 
-## **Setup Instructions**
+## Installation
+### Add JitPack to Repositories
+Add the following to your `settings.gradle` file:
+```gradle
+dependencyResolutionManagement {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
 
-### **Requirements:**
-- **Android Studio** (version 4.0 or higher)
-- **Java Development Kit (JDK)** (version 8 or higher)
-- **Backend Server:** The API should be deployed and accessible.
+### Add the Dependency
+Include the SDK in your `build.gradle` file:
+```gradle
+dependencies {
+    implementation("com.github.yahavLer:chatSDK:1.0.0")
+}
+```
 
-### **Steps to Run:**
+---
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/yahavLer/25A-10221-YahavLer-chatApp.git
+## Permissions
+Ensure your AndroidManifest.xml includes the following permissions:
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+```
 
-#### **Example usage in Java:**
+---
+
+## Initialization
+The `chatSDK` does not require explicit initialization. You can start using its methods directly.
+
+---
+
+## Usage Examples
+Here are common operations you might perform with the Chat SDK. Each function uses a `Callback_chat<T>`, which has two methods:
+
+- `onSuccess(T result)` – Called when the operation succeeds.
+- `onFailure(String errorMessage)` – Called when an error occurs.
+
+### 1. Create a Chat
 ```java
-chatSDK.getChatsByUserId(currentUserId, new Callback_chat<List<Chat>>() {
+Chat chat = new Chat();
+chat.setTitle("New Chat");
+chatSDK.createChat(chat, "user1Id", "user2Id", new Callback_chat<Chat>() {
     @Override
-    public void onSuccess(List<Chat> chats) {
-        // Successfully retrieved chats
-        for (Chat chat : chats) {
-            System.out.println("Chat ID: " + chat.getId());
-        }
+    public void onSuccess(Chat result) {
+        System.out.println("Chat created with ID: " + result.getChatId());
     }
 
     @Override
     public void onFailure(String errorMessage) {
-        // Handle failure
-        System.err.println("Error fetching chats: " + errorMessage);
+        System.err.println("Failed to create chat: " + errorMessage);
     }
 });
+```
+
+### 2. Retrieve a User by ID
+```java
+chatSDK.getUserByUserId("user1Id", new Callback_chat<User>() {
+    @Override
+    public void onSuccess(User result) {
+        System.out.println("User retrieved: " + result.getUsername());
+    }
+
+    @Override
+    public void onFailure(String errorMessage) {
+        System.err.println("Failed to retrieve user: " + errorMessage);
+    }
+});
+```
+
+### 3. Send a Message
+```java
+Message message = new Message();
+message.setContent("Hello World!");
+message.setSenderId("user1Id");
+message.setReceiverId("user2Id");
+
+chatSDK.sendMessage(message, new Callback_chat<Message>() {
+    @Override
+    public void onSuccess(Message result) {
+        System.out.println("Message sent successfully!");
+    }
+
+    @Override
+    public void onFailure(String errorMessage) {
+        System.err.println("Failed to send message: " + errorMessage);
+    }
+});
+```
+
+---
+
+## Error Handling
+All methods return errors through the `onFailure(String errorMessage)` callback. Common errors include:
+- Network issues
+- Invalid input data (e.g., user or chat ID not found)
+- Server errors (5xx)
+
+Tip: Use logs or user-friendly toasts/snackbars to handle errors gracefully.
+
+---
+
+## Use Cases
+- **Chat Applications:** Implement messaging features in social apps.
+- **Customer Support Systems:** Allow users to chat with support agents.
+- **Team Collaboration Tools:** Enable real-time messaging between team members.
+
+---
+
+## Known Limitations
+- The SDK does not currently support media (e.g., image or file sharing).
+- No built-in push notifications.
+- Pagination is supported but limited to simple queries.
+
+---
+
+## Contributing
+We welcome contributions! To contribute:
+1. Fork the repo.
+2. Create a new branch.
+3. Make your changes and commit them.
+4. Submit a pull request with a detailed description.
+
+---
+
+## License
+Distributed under the MIT License. See the LICENSE file for more information.
+
+---
+
+## Questions or Feedback?
+Feel free to open an issue on GitHub or contact the project maintainer if you have any questions or suggestions.
+
+Happy coding with Chat SDK! 🚀
+
