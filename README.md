@@ -44,6 +44,20 @@ These controllers are accessed via the main `chatSDK` facade, which exposes vari
 - `createChat(Chat chat, String user1Id, String user2Id, Callback_chat<Chat> callback)`
 - `getUserByUserId(String userId, Callback_chat<User> callback)`
 - `sendMessage(Message message, Callback_chat<Message> callback)`
+- `createChat(Chat chat, String user1Id, String user2Id, Callback_chat<Chat> callback)`
+- `getChatByChatId(String chatId, Callback_chat<Chat> callback)`
+- `getChatsByUserId(String userId, Callback_chat<List<Chat>> callback)`
+- `getChatBetweenUsers(String user1Id, String user2Id, Callback_chat<Chat> callback)`
+- `getAllChats(int size, int page, Callback_chat<List<Chat>> callback)`
+- `deleteAllChats(Callback_chat<Chat> callback)`
+- `createUser(User user, Callback_chat<User> callback)`
+- `getUserByUserId(String userId, Callback_chat<User> callback)`
+- `getByUsernameAndPhone(String username,String phoneNumber, Callback_chat<User> callback)`
+- `getAllUsers(int size, int page, Callback_chat<List<User>> callback)`
+- `sendMessage(Message message, Callback_chat<Message> callback)`
+- `getMessageById(String messageId, Callback_chat<Message> callback)`
+- `getAllMessages(int size, int page, Callback_chat<List<Message>> callback)`
+- `deleteAllMessages(Callback_chat<Message> callback)`
 
 ---
 
