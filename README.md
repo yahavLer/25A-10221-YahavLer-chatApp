@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/yahavLer/25A-10221-YahavLer-chatApp.svg)](https://jitpack.io/#yahavLer/25A-10221-YahavLer-chatApp)
+
 # Chat SDK for Android
 
 The Chat SDK is a flexible and easy-to-use library designed to simplify the creation and management of chat functionalities in Android applications. It provides core features like chat creation, user management, and message handling, with all operations performed asynchronously through callback-based methods.
@@ -75,9 +77,9 @@ dependencyResolutionManagement {
 ### Add the Dependency
 Include the SDK in your `build.gradle` file:
 ```gradle
-dependencies {
-    implementation("com.github.yahavLer:chatLibrary:1.0.0")
-}
+	dependencies {
+	        implementation 'com.github.yahavLer:25A-10221-YahavLer-chatApp:1.0.0'
+	}
 ```
 
 ---
