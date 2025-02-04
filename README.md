@@ -62,7 +62,7 @@ dependencyResolutionManagement {
 Include the SDK in your `build.gradle` file:
 ```gradle
 dependencies {
-    implementation("com.github.yahavLer:chatSDK:1.0.0")
+    implementation("com.github.yahavLer:chatLibrary:1.0.0")
 }
 ```
 
