@@ -32,6 +32,27 @@ The Chat SDK project provides a complete solution for integrating chat functiona
 
 This documentation includes setup instructions, API reference, usage examples, and more.
 
+## Hosting & Deployment
+
+- **API Service:** Deployed on [Koyeb](https://favourable-lorrie-yahavler-7d646b21.koyeb.app/).
+   - Base URL: `https://favourable-lorrie-yahavler-7d646b21.koyeb.app/`
+- **MongoDB Atlas:** Cloud-hosted database for storing chat, user, and message data.
+- **Library:** Published on [JitPack](https://jitpack.io/#yahavLer/25A-10221-YahavLer-chatApp) for integration.
+
+## Support and Maintenance
+
+For issues, questions, or feature requests, you can:
+
+1. **Open an Issue:** Visit the [GitHub Issues](https://github.com/yahavLer/25A-10221-YahavLer-chatApp/issues) page to report bugs or request new features.
+2. **Contribute:** Fork the repository, make your changes, and submit a pull request.
+3. **Contact:** For additional support, reach out to the project maintainer.
+
+## Compatibility and Versioning
+
+- Current Version: `1.0.0`
+- Compatible with: **Android SDK 21 (Lollipop)** and above
+- Library dependency: `implementation 'com.github.yahavLer:25A-10221-YahavLer-chatApp:1.0.0'`
+
 ---
 
 ## API Service Documentation
@@ -237,10 +258,12 @@ All SDK methods use a `Callback_chat<T>` interface with two methods:
 
 The system architecture is designed with the following components:
 
-- **API Service:** Deployed on Koyeb, handles all backend operations.
+- **API Service:** Deployed on [Koyeb](https://favourable-lorrie-yahavler-7d646b21.koyeb.app/), handles all backend operations.
 - **MongoDB Atlas:** Cloud-hosted database for storing chat, user, and message data.
-- **Android Library:** Provides developers with SDK methods to interact with the API.
+- **Android Library:** Published on [JitPack](https://jitpack.io/#yahavLer/25A-10221-YahavLer-chatApp).
 - **Example Application:** Demonstrates usage of the library's features.
+
+
 ```mermaid
 
 graph TD;
