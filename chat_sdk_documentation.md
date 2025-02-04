@@ -231,8 +231,6 @@ All SDK methods use a `Callback_chat<T>` interface with two methods:
 - Launch the application.
 - Use the provided buttons to test chat creation, user retrieval, and message sending.
 
-
-
 ---
 
 ## Architecture Overview
@@ -243,7 +241,6 @@ The system architecture is designed with the following components:
 - **MongoDB Atlas:** Cloud-hosted database for storing chat, user, and message data.
 - **Android Library:** Provides developers with SDK methods to interact with the API.
 - **Example Application:** Demonstrates usage of the library's features.
-- 
 ```mermaid
 
 graph TD;
