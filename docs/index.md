@@ -39,13 +39,7 @@ This documentation includes setup instructions, API reference, usage examples, a
 - **MongoDB Atlas:** Cloud-hosted database for storing chat, user, and message data.
 - **Library:** Published on [JitPack](https://jitpack.io/#yahavLer/25A-10221-YahavLer-chatApp) for integration.
 
-## Support and Maintenance
 
-For issues, questions, or feature requests, you can:
-
-1. **Open an Issue:** Visit the [GitHub Issues](https://github.com/yahavLer/25A-10221-YahavLer-chatApp/issues) page to report bugs or request new features.
-2. **Contribute:** Fork the repository, make your changes, and submit a pull request.
-3. **Contact:** For additional support, reach out to the project maintainer.
 
 ## Compatibility and Versioning
 
