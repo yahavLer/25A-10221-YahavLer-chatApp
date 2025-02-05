@@ -55,32 +55,35 @@ This documentation includes setup instructions, API reference, usage examples, a
 The backend API provides the following endpoints for chat, user, and message operations:
 
 #### Chat API Endpoints
-| Endpoint                             | Method | Description                                   |
-|---------------------------------------|--------|-----------------------------------------------|
-| `/api/chats/create`                   | POST   | Create a new chat                             |
-| `/api/chats/chat/{chatId}`            | GET    | Retrieve a chat by its ID                     |
-| `/api/chats/user/{userId}`            | GET    | Retrieve chats by a user ID                   |
-| `/api/chats/user1/{user1Id}/user2/{user2Id}` | GET | Retrieve a chat between two users             |
-| `/api/chats/all`                      | GET    | Retrieve all chats with pagination            |
-| `/api/chats/delete`                   | DELETE | Delete all chats                              |
+
+| Endpoint                                     | Method | Description                        |
+|----------------------------------------------|--------|------------------------------------|
+| `/api/chats/create`                          | POST   | Create a new chat                  |
+| `/api/chats/chat/{chatId}`                   | GET    | Retrieve a chat by its ID          |
+| `/api/chats/user/{userId}`                   | GET    | Retrieve chats by a user ID        |
+| `/api/chats/user1/{user1Id}/user2/{user2Id}` | GET    | Retrieve a chat between two users  |   
+| `/api/chats/all`                             | GET    | Retrieve all chats with pagination |
+| `/api/chats/delete`                          | DELETE | Delete all chats                   |
 
 #### Message API Endpoints
-| Endpoint                                 | Method | Description                                   |
-|-------------------------------------------|--------|-----------------------------------------------|
-| `/api/messages/send`                      | POST   | Send a new message                            |
-| `/api/messages/user/{userId}/receiver/{receiverId}` | GET | Retrieve messages sent to a specific receiver |
-| `/api/messages/user/{userId}/sender/{senderId}`     | GET | Retrieve messages sent from a specific sender |
-| `/api/messages/{messageId}`               | GET    | Retrieve a message by its ID                  |
-| `/api/messages/all`                       | GET    | Retrieve all messages with pagination         |
-| `/api/messages/delete`                    | GET    | Delete all messages                           |
+
+| Endpoint                                            | Method | Description                                   |
+|-----------------------------------------------------|--------|-----------------------------------------------|
+| `/api/messages/send`                                | POST   | Send a new message                            |
+| `/api/messages/user/{userId}/receiver/{receiverId}` | GET    | Retrieve messages sent to a specific receiver |
+| `/api/messages/user/{userId}/sender/{senderId}`     | GET    | Retrieve messages sent from a specific sender |
+| `/api/messages/{messageId}`                         | GET    | Retrieve a message by its ID                  |
+| `/api/messages/all`                                 | GET    | Retrieve all messages with pagination         |
+| `/api/messages/delete`                              | GET    | Delete all messages                           |
 
 #### User API Endpoints
-| Endpoint                                 | Method | Description                                   |
-|-------------------------------------------|--------|-----------------------------------------------|
-| `/api/users/create`                       | POST   | Create a new user                             |
-| `/api/users/userId/{userId}`              | GET    | Retrieve a user by their ID                   |
-| `/api/users/all`                          | GET    | Retrieve all users with pagination            |
-| `/api/users/username/{username}/phoneNumber/{phoneNumber}` | GET | Retrieve a user by username and phone number  |
+
+| Endpoint                                                   | Method | Description                                  |
+|------------------------------------------------------------|--------|----------------------------------------------|
+| `/api/users/create`                                        | POST   | Create a new user                            |
+| `/api/users/userId/{userId}`                               | GET    | Retrieve a user by their ID                  |
+| `/api/users/all`                                           | GET    | Retrieve all users with pagination           |
+| `/api/users/username/{username}/phoneNumber/{phoneNumber}` | GET    | Retrieve a user by username and phone number |
 
 ### Database Schema
 The API uses a MongoDB Atlas cloud database. The main collections include:
