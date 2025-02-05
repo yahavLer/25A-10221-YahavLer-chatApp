@@ -264,10 +264,10 @@ The system architecture is designed with the following components:
 ```mermaid
 
 graph TD;
-    User -->|Requests| API[Chat API Service];
-    API -->|Fetches Data| Database[MongoDB Atlas];
-    API -->|Returns Data| SDK[Chat SDK];
-    SDK -->|Displays Data| App[Example Android App];
+    User -->|Requests| API[Chat API Service]
+    API -->|Fetches Data| Database[MongoDB Atlas]
+    API -->|Returns Data| SDK[Chat SDK]
+    SDK -->|Displays Data| App[Example Android App]
 
 ```
 
