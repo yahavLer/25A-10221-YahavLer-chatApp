@@ -1,6 +1,6 @@
 # Chat SDK Project Documentation
 
-## Table of Contents
+## Table of Contents 
 1. [Overview](#overview)
 2. [API Service Documentation](#api-service-documentation)
     - [API Endpoints](#api-endpoints)
